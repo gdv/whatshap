@@ -48,7 +48,7 @@ def test_one_variant():
 def test_default_output():
     """Output to stdout"""
     run_genotype(
-        phase_input_files=["tests/data/oneread.bam"], variant_file="tests/data/onevariant.vcf",
+        phase_input_files=["tests/data/oneread.bam"], variant_file="tests/data/onevariant.vcf"
     )
 
 
@@ -190,10 +190,7 @@ def test_genotyping_one_of_three_individuals(tmp_path):
 
         # there should be no genotype predictions for HG003/HG002
         default_l = math.log10(1 / 3.0)
-        for l in [
-            table.genotype_likelihoods_of("HG002"),
-            table.genotype_likelihoods_of("HG004"),
-        ]:
+        for l in [table.genotype_likelihoods_of("HG002"), table.genotype_likelihoods_of("HG004")]:
             for var in l:
                 for v in var.log10_probs():
                     assert pytest.approx(default_l) == v
@@ -226,7 +223,7 @@ def test_use_ped_samples(tmp_path):
 
 @pytest.mark.parametrize(
     "sample_set",
-    [["HG002"], ["HG003"], ["HG004"], ["HG002", "HG003"], ["HG002", "HG004"], ["HG003", "HG004"],],
+    [["HG002"], ["HG003"], ["HG004"], ["HG002", "HG003"], ["HG002", "HG004"], ["HG003", "HG004"]],
 )
 def test_ped_sample(sample_set, tmp_path):
     # running with --ped and --sample on subset of trio,
@@ -256,7 +253,7 @@ def test_ped_sample(sample_set, tmp_path):
 
     for individual in sample_set:
         for var1, var2 in zip(
-            table1.genotype_likelihoods_of(individual), table2.genotype_likelihoods_of(individual),
+            table1.genotype_likelihoods_of(individual), table2.genotype_likelihoods_of(individual)
         ):
             print(var1, var2)
             assert var1.log10_probs() == var2.log10_probs()

@@ -11,10 +11,7 @@ from whatshap.core import (
     PhredGenotypeLikelihoods,
     Genotype,
 )
-from whatshap.testhelpers import (
-    string_to_readset_pedigree,
-    canonic_index_list_to_biallelic_gt_list,
-)
+from whatshap.testhelpers import string_to_readset_pedigree, canonic_index_list_to_biallelic_gt_list
 
 
 def genotype_pedigree(
@@ -816,7 +813,7 @@ def test_genotyping_trio13():
     pedigree.add_relationship("individual0", "individual1", "individual2")
     recombcost = [1000000, 1000000, 1000000, 1000000, 1000000, 1000000]
     genotype_pedigree(
-        numeric_sample_ids, reads, recombcost, pedigree, expected_genotypes, scaling=1000,
+        numeric_sample_ids, reads, recombcost, pedigree, expected_genotypes, scaling=1000
     )
 
 
@@ -854,5 +851,5 @@ def test_genotyping_trio14():
     pedigree.add_relationship("individual0", "individual1", "individual2")
     recombcost = [1000000, 1000000, 1000000, 1000000, 1000000, 1000000]
     genotype_pedigree(
-        numeric_sample_ids, reads, recombcost, pedigree, expected_genotypes, scaling=1000,
+        numeric_sample_ids, reads, recombcost, pedigree, expected_genotypes, scaling=1000
     )

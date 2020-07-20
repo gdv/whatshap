@@ -190,7 +190,7 @@ def compute_switch_flips_poly(phasing0, phasing1, switch_cost=1, flip_cost=1):
     Computes the combined number of switches and flips, which are needed to transform phasing 0 into
     phasing 1 or vice versa.
     """
-    (result, switches_in_column, flips_in_column, poswise_config,) = compute_switch_flips_poly_bt(
+    (result, switches_in_column, flips_in_column, poswise_config) = compute_switch_flips_poly_bt(
         phasing0, phasing1, switch_cost=switch_cost, flip_cost=flip_cost
     )
     return result
@@ -328,12 +328,7 @@ def create_bed_records(chromosome, phasing0, phasing1, positions, annotation_str
     switch_encoding1 = switch_encoding(phasing1)
     for i, (sw0, sw1) in enumerate(zip(switch_encoding0, switch_encoding1)):
         if sw0 != sw1:
-            yield (
-                chromosome,
-                positions[i] + 1,
-                positions[i + 1] + 1,
-                annotation_string,
-            )
+            yield (chromosome, positions[i] + 1, positions[i + 1] + 1, annotation_string)
 
 
 def print_stat(text: str, value=None, value2=None, text_width=37):
@@ -541,8 +536,7 @@ def compare(variant_tables, sample: str, dataset_names, ploidy):
         print_errors(longest_block_errors, longest_block_assessed_pairs)
         print_stat("Hamming distance", longest_block_errors.hamming)
         print_stat(
-            "Hamming distance [%]",
-            fraction2percentstr(longest_block_errors.hamming, longest_block),
+            "Hamming distance [%]", fraction2percentstr(longest_block_errors.hamming, longest_block)
         )
         print_stat("Different genotypes", longest_block_errors.diff_genotypes)
         print_stat(
@@ -953,7 +947,7 @@ def run_compare(
                 ) = compare(variant_tables, sample, dataset_names, ploidy)
                 add_block_stats(block_stats)
                 if tsv_multiway_file:
-                    for ((dataset_list0, dataset_list1), count,) in multiway_results.items():
+                    for ((dataset_list0, dataset_list1), count) in multiway_results.items():
                         print(
                             sample,
                             chromosome,

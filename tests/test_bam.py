@@ -1,9 +1,5 @@
 from pytest import raises
-from whatshap.bam import (
-    SampleBamReader,
-    SampleNotFoundError,
-    AlignmentFileNotIndexedError,
-)
+from whatshap.bam import SampleBamReader, SampleNotFoundError, AlignmentFileNotIndexedError
 
 
 def test_read():

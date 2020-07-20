@@ -418,7 +418,7 @@ def test_phase_trio_use_ped_samples(ped_samples, tmpdir):
 
 @mark.parametrize(
     "sample_set",
-    [["HG002"], ["HG003"], ["HG004"], ["HG002", "HG003"], ["HG002", "HG004"], ["HG003", "HG004"],],
+    [["HG002"], ["HG003"], ["HG004"], ["HG002", "HG003"], ["HG002", "HG004"], ["HG003", "HG004"]],
 )
 def test_phase_ped_sample(tmpdir, sample_set):
     # running with --ped and --sample on subset of trio, should give same results as running with only --sample
@@ -504,10 +504,10 @@ def test_phase_trio_merged_blocks(tmpdir):
     phase0 = VariantCallPhase(752566, (0, 1), None)
     phase1 = VariantCallPhase(752566, (1, 0), None)
     assert_phasing(
-        table.phases_of("HG004"), [phase1, phase1, phase1, None, phase1, phase1, phase1, phase1],
+        table.phases_of("HG004"), [phase1, phase1, phase1, None, phase1, phase1, phase1, phase1]
     )
     assert_phasing(
-        table.phases_of("HG003"), [None, None, None, None, phase0, phase0, phase0, phase1],
+        table.phases_of("HG003"), [None, None, None, None, phase0, phase0, phase0, phase1]
     )
     assert_phasing(table.phases_of("HG002"), [None, None, None, None, None, None, None, phase1])
 
@@ -542,7 +542,7 @@ def test_phase_trio_dont_merge_blocks(tmpdir):
         [phase1, phase1, phase1, None, phase2_1, phase2_1, phase2_1, phase2_1],
     )
     assert_phasing(
-        table.phases_of("HG003"), [None, None, None, None, phase2_0, phase2_0, phase2_0, phase2_1],
+        table.phases_of("HG003"), [None, None, None, None, phase2_0, phase2_0, phase2_0, phase2_1]
     )
     assert_phasing(table.phases_of("HG002"), [None, None, None, None, None, None, None, phase2_1])
 
@@ -639,9 +639,7 @@ def test_phase_specific_chromosome(chromosome, tmp_path):
         assert table.samples == ["HG004", "HG003", "HG002"]
         if table.chromosome == "1" == chromosome:
             phase0 = VariantCallPhase(60906167, (0, 1), None)
-            assert_phasing(
-                table.phases_of("HG004"), [phase0, phase0, phase0, phase0, phase0],
-            )
+            assert_phasing(table.phases_of("HG004"), [phase0, phase0, phase0, phase0, phase0])
             assert_phasing(table.phases_of("HG003"), [phase0, None, phase0, phase0, phase0])
             assert_phasing(table.phases_of("HG002"), [None, phase0, None, None, None])
         elif table.chromosome == "2" == chromosome:
@@ -827,7 +825,7 @@ def test_quartet2():
 
 @mark.parametrize(
     "algorithm,expected_blocks",
-    [("whatshap", [10, 10, None, 200, 200]), ("hapchat", [10, 10, 10, 10, 10]),],
+    [("whatshap", [10, 10, None, 200, 200]), ("hapchat", [10, 10, 10, 10, 10])],
 )
 def test_phased_blocks(algorithm, expected_blocks, tmp_path):
     # This test involves a simple example on a pair of reads which
@@ -874,7 +872,7 @@ def test_phased_blocks(algorithm, expected_blocks, tmp_path):
 
 @mark.parametrize(
     "algorithm,expected_block",
-    [("whatshap", [10, 10, None, None, None]), ("hapchat", [10, 10, 10, None, None]),],
+    [("whatshap", [10, 10, None, None, None]), ("hapchat", [10, 10, 10, None, None])],
 )
 def test_duplicate_read(algorithm, expected_block, tmp_path):
     # This test is very similar to the previous test_phased_blocks

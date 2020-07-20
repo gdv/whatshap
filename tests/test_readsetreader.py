@@ -19,12 +19,7 @@ def test_merge_pair_without_shared_positions(merge):
     right.add_variant(300, 1, 41)
     right.add_variant(400, 1, 42)
 
-    expected = [
-        Variant(100, 0, 31),
-        Variant(200, 0, 32),
-        Variant(300, 1, 41),
-        Variant(400, 1, 42),
-    ]
+    expected = [Variant(100, 0, 31), Variant(200, 0, 32), Variant(300, 1, 41), Variant(400, 1, 42)]
     assert expected == list(merge(left, right))
     assert expected == list(merge(right, left))
 
@@ -60,11 +55,7 @@ def test_merge_pair_with_shared_positions(merge):
 
 
 def test_merge_many_reads():
-    reads = [
-        Read("Name1"),
-        Read("Name2"),
-        Read("Name3"),
-    ]
+    reads = [Read("Name1"), Read("Name2"), Read("Name3")]
     reads[0].add_variant(100, 0, 31)
     reads[0].add_variant(200, 1, 32)
     reads[0].add_variant(300, 0, 33)

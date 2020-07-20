@@ -128,7 +128,7 @@ def best_case_blocks(reads):
 
 def select_reads(readset, max_coverage, preferred_source_ids):
     logger.info(
-        "Reducing coverage to at most %dX by selecting most informative reads ...", max_coverage,
+        "Reducing coverage to at most %dX by selecting most informative reads ...", max_coverage
     )
     selected_indices = readselection(readset, max_coverage, preferred_source_ids)
     selected_reads = readset.subset(selected_indices)
@@ -319,7 +319,7 @@ def run_whatshap(
 
     timers = StageTimer()
     logger.info(
-        "This is WhatsHap %s running under Python %s", __version__, platform.python_version(),
+        "This is WhatsHap %s running under Python %s", __version__, platform.python_version()
     )
     if full_genotyping:
         distrust_genotypes = True
@@ -344,7 +344,7 @@ def run_whatshap(
         try:
             vcf_writer = stack.enter_context(
                 PhasedVcfWriter(
-                    command_line=command_line, in_path=variant_file, out_file=output, tag=tag,
+                    command_line=command_line, in_path=variant_file, out_file=output, tag=tag
                 )
             )
         except (OSError, VcfError) as e:
@@ -382,9 +382,7 @@ def run_whatshap(
         raise_if_any_sample_not_in_vcf(vcf_reader, samples)
 
         if ped and genmap:
-            logger.info(
-                "Using region-specific recombination rates from genetic map %s.", genmap,
-            )
+            logger.info("Using region-specific recombination rates from genetic map %s.", genmap)
             try:
                 recombination_cost_computer = GeneticMapRecombinationCostComputer(genmap)
             except ParseError as e:
@@ -432,13 +430,13 @@ def run_whatshap(
                     with timers("read_bam"):
                         bam_sample = None if ignore_read_groups else sample
                         readset, vcf_source_ids = phased_input_reader.read(
-                            chromosome, variant_table.variants, bam_sample, read_vcf=False,
+                            chromosome, variant_table.variants, bam_sample, read_vcf=False
                         )
                         readset.sort()  # TODO can be removed
                         genotypes, genotype_likelihoods = compute_genotypes(readset, positions)
                         variant_table.set_genotypes_of(sample, genotypes)
                         variant_table.set_genotype_likelihoods_of(
-                            sample, [GenotypeLikelihoods(gl) for gl in genotype_likelihoods],
+                            sample, [GenotypeLikelihoods(gl) for gl in genotype_likelihoods]
                         )
 
             # These two variables hold the phasing results for all samples
@@ -466,7 +464,7 @@ def run_whatshap(
                 for sample in family:
                     with timers("read_bam"):
                         readset, vcf_source_ids = phased_input_reader.read(
-                            chromosome, phasable_variant_table.variants, sample,
+                            chromosome, phasable_variant_table.variants, sample
                         )
 
                     # TODO: Read selection done w.r.t. all variants, where using heterozygous
@@ -476,7 +474,7 @@ def run_whatshap(
                             [i for i, read in enumerate(readset) if len(read) >= 2]
                         )
                         logger.info(
-                            "Kept %d reads that cover at least two variants each", len(readset),
+                            "Kept %d reads that cover at least two variants each", len(readset)
                         )
                         merged_reads = read_merger.merge(readset)
                         selected_reads = select_reads(
@@ -611,9 +609,7 @@ def run_whatshap(
                         transmission_vector,
                         trios,
                     )
-                    logger.info(
-                        "Total no. of detected recombination events: %d", n_recombinations,
-                    )
+                    logger.info("Total no. of detected recombination events: %d", n_recombinations)
 
                 # Superreads in superreads_list are in the same order as individuals were added to the pedigree
                 for sample, sample_superreads in zip(family, superreads_list):
@@ -653,10 +649,8 @@ def run_whatshap(
 
 
 def log_best_case_phasing_info(readset, selected_reads):
-    (n_best_case_blocks, n_best_case_nonsingleton_blocks,) = best_case_blocks(readset)
-    (n_best_case_blocks_cov, n_best_case_nonsingleton_blocks_cov,) = best_case_blocks(
-        selected_reads
-    )
+    (n_best_case_blocks, n_best_case_nonsingleton_blocks) = best_case_blocks(readset)
+    (n_best_case_blocks_cov, n_best_case_nonsingleton_blocks_cov) = best_case_blocks(selected_reads)
     logger.info(
         "Best-case phasing would result in %d non-singleton phased blocks (%d in total)",
         n_best_case_nonsingleton_blocks,
@@ -764,9 +758,7 @@ def find_phaseable_variants(family, include_homozygous, trios, variant_table):
     phasable_variant_table = deepcopy(variant_table)
     # Remove calls to be discarded from variant table
     phasable_variant_table.remove_rows_by_index(to_discard)
-    logger.info(
-        "Number of variants skipped due to missing genotypes: %d", len(missing_genotypes),
-    )
+    logger.info("Number of variants skipped due to missing genotypes: %d", len(missing_genotypes))
     if len(family) == 1:
         logger.info(
             "Number of remaining%s variants: %d",
@@ -775,7 +767,7 @@ def find_phaseable_variants(family, include_homozygous, trios, variant_table):
         )
     else:
         logger.info(
-            "Number of variants skipped due to Mendelian conflicts: %d", len(mendelian_conflicts),
+            "Number of variants skipped due to Mendelian conflicts: %d", len(mendelian_conflicts)
         )
         logger.info(
             "Number of remaining variants heterozygous in at least one individual: %d",
@@ -868,7 +860,7 @@ def find_mendelian_conflicts(trios, variant_table):
 def write_changed_genotypes(gtchange_list_filename, changed_genotypes):
     with open(gtchange_list_filename, "w") as f:
         print(
-            "#sample", "chromosome", "position", "REF", "ALT", "old_gt", "new_gt", sep="\t", file=f,
+            "#sample", "chromosome", "position", "REF", "ALT", "old_gt", "new_gt", sep="\t", file=f
         )
         for changed_genotype in changed_genotypes:
             print(

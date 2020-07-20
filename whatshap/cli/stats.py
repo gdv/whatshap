@@ -134,7 +134,7 @@ def compute_n50(blocks, chr_lengths):
             target_length += chr_lengths[chromosome]
         except KeyError:
             logger.warning(
-                "Not able to compute N50 because chromosome length of %s not available", chromosome,
+                "Not able to compute N50 because chromosome length of %s not available", chromosome
             )
             return float("nan")
 
@@ -259,14 +259,10 @@ class PhasingStats:
             "Heterozygous:".rjust(WIDTH),
             "{:8d} ({:8d} SNVs)".format(stats.heterozygous_variants, stats.heterozygous_snvs),
         )
+        print("Phased:".rjust(WIDTH), "{:8d} ({:8d} SNVs)".format(stats.phased, stats.phased_snvs))
+        print("Unphased:".rjust(WIDTH), "{:8d}".format(stats.unphased), "(not considered below)")
         print(
-            "Phased:".rjust(WIDTH), "{:8d} ({:8d} SNVs)".format(stats.phased, stats.phased_snvs),
-        )
-        print(
-            "Unphased:".rjust(WIDTH), "{:8d}".format(stats.unphased), "(not considered below)",
-        )
-        print(
-            "Singletons:".rjust(WIDTH), "{:8d}".format(stats.singletons), "(not considered below)",
+            "Singletons:".rjust(WIDTH), "{:8d}".format(stats.singletons), "(not considered below)"
         )
         print("Blocks:".rjust(WIDTH), "{:8d}".format(stats.blocks))
         print()
@@ -280,20 +276,16 @@ class PhasingStats:
             "{:11.2f} variants".format(stats.variant_per_block_avg),
         )
         print(
-            "Largest block:".rjust(WIDTH), "{:8d}    variants".format(stats.variant_per_block_max),
+            "Largest block:".rjust(WIDTH), "{:8d}    variants".format(stats.variant_per_block_max)
         )
         print(
-            "Smallest block:".rjust(WIDTH), "{:8d}    variants".format(stats.variant_per_block_min),
+            "Smallest block:".rjust(WIDTH), "{:8d}    variants".format(stats.variant_per_block_min)
         )
         print()
         print("Block lengths (basepairs)")
         print("Sum of lengths:".rjust(WIDTH), "{:8d}    bp".format(stats.bp_per_block_sum))
-        print(
-            "Median block length:".rjust(WIDTH), "{:11.2f} bp".format(stats.bp_per_block_median),
-        )
-        print(
-            "Average block length:".rjust(WIDTH), "{:11.2f} bp".format(stats.bp_per_block_avg),
-        )
+        print("Median block length:".rjust(WIDTH), "{:11.2f} bp".format(stats.bp_per_block_median))
+        print("Average block length:".rjust(WIDTH), "{:11.2f} bp".format(stats.bp_per_block_avg))
         print("Longest block:".rjust(WIDTH), "{:8d}    bp".format(stats.bp_per_block_max))
         print("Shortest block:".rjust(WIDTH), "{:8d}    bp".format(stats.bp_per_block_min))
         print("Block N50:".rjust(WIDTH), "{:8.0f}    bp".format(stats.block_n50))
@@ -429,7 +421,7 @@ def run_stats(
 
             if gtfwriter and prev_block_id is not None:
                 gtfwriter.write(
-                    chromosome, prev_block_fragment_start, prev_block_fragment_end, prev_block_id,
+                    chromosome, prev_block_fragment_start, prev_block_fragment_end, prev_block_id
                 )
 
             if block_list_file:

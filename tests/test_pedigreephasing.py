@@ -87,7 +87,7 @@ def test_phase_empty_trio():
     pedigree.add_individual("individual2", [])
     pedigree.add_relationship("individual0", "individual1", "individual2")
     dp_table = PedigreeDPTable(rs, recombcost, pedigree)
-    ((superreadsm, superreadsf, superreadsc), transmission_vector,) = dp_table.get_super_reads()
+    ((superreadsm, superreadsf, superreadsc), transmission_vector) = dp_table.get_super_reads()
 
 
 def test_phase_trio1():
@@ -175,11 +175,7 @@ def test_phase_trio3():
         [2, 2, 2, 3, 3, 3],
         [3, 3, 3, 2, 2, 2],
     )
-    all_expected_haplotypes = [
-        ("111111", "000000"),
-        ("010101", "101010"),
-        ("111000", "010101"),
-    ]
+    all_expected_haplotypes = [("111111", "000000"), ("010101", "101010"), ("111000", "010101")]
     assert_haplotypes(superreads_list, all_expected_haplotypes, 6)
     assert_trio_allele_order(superreads_list, transmission_vector, 6)
 
@@ -309,12 +305,7 @@ def test_phase_quartet1():
     superreads_list, transmission_vector, cost = phase_pedigree(reads, recombcost, pedigree)
     assert cost == 2
     assert len(set(transmission_vector)) == 1
-    all_expected_haplotypes = [
-        ("111", "010"),
-        ("001", "110"),
-        ("001", "010"),
-        ("001", "010"),
-    ]
+    all_expected_haplotypes = [("111", "010"), ("001", "110"), ("001", "010"), ("001", "010")]
     assert_haplotypes(superreads_list, all_expected_haplotypes, 3)
     trio_transmission_vectors = get_trio_transmission_vectors(transmission_vector, 3)
     assert_trio_allele_order(superreads_list[:3], trio_transmission_vectors[0], 3)
@@ -464,10 +455,10 @@ def test_phase_trio_genotype_likelihoods():
         genotype_likelihoods_mother,
     )
     pedigree.add_individual(
-        "individual1", canonic_index_list_to_biallelic_gt_list([0, 0, 0]), genotype_likelihoods0,
+        "individual1", canonic_index_list_to_biallelic_gt_list([0, 0, 0]), genotype_likelihoods0
     )
     pedigree.add_individual(
-        "individual2", canonic_index_list_to_biallelic_gt_list([0, 0, 0]), genotype_likelihoods0,
+        "individual2", canonic_index_list_to_biallelic_gt_list([0, 0, 0]), genotype_likelihoods0
     )
     pedigree.add_relationship("individual0", "individual1", "individual2")
     recombcost = [10, 10, 10]
